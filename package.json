@@ -1,0 +1,18 @@
+{
+
+"type": "module",
+
+"scripts": {
+
+"dev": "node keygenerator.js"
+
+},
+
+"dependencies": {
+
+"crypto-js": "^4.2.0",
+
+"elliptic": "^6.6.1"
+}
+
+}
