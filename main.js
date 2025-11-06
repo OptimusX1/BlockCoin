@@ -1,5 +1,5 @@
 
-import { Block, Blockchain, Transaction } from './blockchain.js';
+import {  Blockchain, Transaction } from './src/blockchain.js';
 
 
 const blockcoin = new Blockchain();
@@ -8,8 +8,8 @@ const blockcoin = new Blockchain();
 // console.log(new Transaction('address1', 'address2', 100));
 // console.log(new Transaction('address1', 'address2', 100));
 
-blockcoin.createTransaction(new Transaction('address1', 'address2', 100));
-blockcoin.createTransaction(new Transaction('address2', 'address1', 50));
+blockcoin.addTransaction(new Transaction('address1', 'address2', 100));
+blockcoin.addTransaction(new Transaction('address2', 'address1', 50));
 
 // Mine the pending transactions
 console.log('\n mining pending transactions');
@@ -23,6 +23,8 @@ console.log('mining pending transactions again...');
 blockcoin.minePendingTransactions('Xavier-address')
 
 console.log('\n Balance of Xavier ', blockcoin.getBalanceOfAddress('Xavier-address'));
+
+// console.log(blockcoin.chain);
 
 
 

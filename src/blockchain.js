@@ -2,9 +2,8 @@
 import pkg from 'crypto-js';
 const { SHA256 } = pkg;
 
-
-import pkg, { ec } from 'elliptic'; // Import the elliptic library ( to generate a pub, prov key , method to gen key ) as pkg
-const { ec: EC } = pkg;  // destructure to get EC as ec from pkg
+import pkg2  from 'elliptic'; // Import the elliptic library ( to generate a pub, prov key , method to gen key ) as pkg
+const { ec: EC } = pkg2;  // destructure to get EC as ec from pkg
 
 
 class Transaction {
@@ -13,6 +12,8 @@ class Transaction {
     this.toAddress = toAddress;
     this.amount = amount;
     // this.signTransaction();
+   
+    
   }
 
   calculateHash(){
@@ -110,17 +111,22 @@ class Blockchain {
     // console.log(block.hash);
    
     this.chain.push(block); // pushing into the chain
-    console.log(this.chain);
+    // console.log(this.chain);
    
     this.pendingTransactions = [
       // creates a new transaction to reward the miner
       new Transaction(null, miningRewardAddress, this.miningReward)
+      
+      
     ];
     // console.log(this.pendingTransactions);
    
   }
 
-  createTransaction(transaction) {
+  addTransaction(transaction) {
+
+    console.log(transaction);
+    
 
     this.pendingTransactions.push(transaction);
     // console.log(this.pendingTransactions);
@@ -134,7 +140,7 @@ class Blockchain {
       // console.log(block);
      
       for (const trans of block.transactions) {
-        console.log(trans);
+        // console.log(trans);
        
         if (trans.fromAddress === address) {
           balance -= trans.amount;
