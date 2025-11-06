@@ -1,6 +1,6 @@
 
 import pkg from 'elliptic'; // Import the elliptic library ( to generate a pub, prov key , method to gen key ) as pkg
-const { ec: EC } = pkg;  // destructure to get EC as ec from pkg
+const { ec: EC } = pkg;  // destructure to get ec as EC from pkg
 
 const ec = new EC('secp256k1'); // Create an EC instance using the secp256k1 curve
 

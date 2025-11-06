@@ -1,30 +1,42 @@
 
 import {  Blockchain, Transaction } from './src/blockchain.js';
 
+import pkg from 'elliptic'; // Import the elliptic library ( to generate a pub, prov key , method to gen key ) as pkg
+const { ec: EC } = pkg;  // destructure to get ec as EC from pkg
 
 const blockcoin = new Blockchain();
+
+const ec = new EC('secp256k1'); // Create an EC instance using the secp256k1 curve
+const key = ec.keyFromPrivate('6cc17c7e74b006dd82bfed609d3bb3d8f400e1576513d057c8abf114bdb0b444');
+const myWalletAddress = key.getPublic('hex');
+// console.log(myWalletAddress);
+
+
+//create a transaction & sign it with your key
+const txt1 = new Transaction(myWalletAddress, 'to some private address', 10);
+txt1.signTransaction(key);
+blockcoin.addTransaction(txt1);
 
 // Store the transactions in pending transaction array
 // console.log(new Transaction('address1', 'address2', 100));
 // console.log(new Transaction('address1', 'address2', 100));
 
-blockcoin.addTransaction(new Transaction('address1', 'address2', 100));
-blockcoin.addTransaction(new Transaction('address2', 'address1', 50));
 
 // Mine the pending transactions
 console.log('\n mining pending transactions');
-blockcoin.minePendingTransactions('Xavier-address')
+blockcoin.minePendingTransactions(myWalletAddress)
 
-console.log('\n Balance of Xavier ', blockcoin.getBalanceOfAddress('Xavier-address'));
+console.log('\n Balance of Xavier ', blockcoin.getBalanceOfAddress(myWalletAddress));
 
 
 
 console.log('mining pending transactions again...');
-blockcoin.minePendingTransactions('Xavier-address')
+blockcoin.minePendingTransactions(myWalletAddress)
 
-console.log('\n Balance of Xavier ', blockcoin.getBalanceOfAddress('Xavier-address'));
+console.log('\n Balance of Xavier ', blockcoin.getBalanceOfAddress(myWalletAddress));
 
-// console.log(blockcoin.chain);
+console.log(blockcoin.chain);
+console.log(blockcoin.isChainValid());
 
 
 

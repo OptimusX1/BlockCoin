@@ -3,8 +3,11 @@ import pkg from 'crypto-js';
 const { SHA256 } = pkg;
 
 import pkg2  from 'elliptic'; // Import the elliptic library ( to generate a pub, prov key , method to gen key ) as pkg
-const { ec: EC } = pkg2;  // destructure to get EC as ec from pkg
+const { ec: EC } = pkg2;  // destructure to get ec as EC from pkg
 
+const ec = new EC('secp256k1'); // Create an EC instance using the secp256k1 curve
+
+// This demonstrates, How a transaction in blockchain look like
 
 class Transaction {
   constructor(fromAddress, toAddress, amount) {
@@ -32,11 +35,11 @@ class Transaction {
 
     const hashTx = this.calculateHash();
     const sig = signingKey.sign(hashTx, 'base64');
-    this.signature = sig.toDer('hex');
+    this.signature = sig.toDER('hex');
 
   }
 
-  isChainValid(){
+  isValid(){
     if(this.fromAddress === null) return true;
 
     if(!this.signature || this.signature.length === 0){
@@ -87,7 +90,7 @@ class Blockchain {
     // console.log(typeof(this.chain));
     this.difficulty = 2;
     this.pendingTransactions = [];
-    this.miningReward = 100;
+    this.miningReward = 10;
 
   }
 
@@ -116,18 +119,25 @@ class Blockchain {
     this.pendingTransactions = [
       // creates a new transaction to reward the miner
       new Transaction(null, miningRewardAddress, this.miningReward)
-      
-      
+  
     ];
+    console.log(miningRewardAddress);
+    
     // console.log(this.pendingTransactions);
    
   }
 
   addTransaction(transaction) {
 
-    console.log(transaction);
+    // console.log(transaction);
     
+    if(!transaction.fromAddress || !transaction.toAddress){
+      throw new Error('Transaction must include from and to address');
+    }
 
+    if(!transaction.isValid()){
+      throw new Error('Cannot add invalid transaction to chain');
+    }
     this.pendingTransactions.push(transaction);
     // console.log(this.pendingTransactions);
   }
