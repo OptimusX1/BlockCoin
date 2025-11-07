@@ -23,19 +23,24 @@ class Transaction {
     return SHA256(this.fromAddress + this.toAddress + this.amount).toString();
   }
 
+  // private key is used to sign the transaction
   signTransaction(signingKey){
     //check if the from address matches with the public key of the signing key
     // console.log(signingKey);
     //  checking whether the signing key matches the from address
+
     //checking whether user uses his wallet amount
-
    if(signingKey.getPublic('hex') !== this.fromAddress){
-      throw new Error('You cannot sign transactions for other wallets!');
+      throw new Error('public key not matched, You cannot sign transactions for other wallets!');
     }  
-
+    //calculating the hash of the Transaction
     const hashTx = this.calculateHash();
+    //signing the hash with the signing key(private key)
     const sig = signingKey.sign(hashTx, 'base64');
+    //converting the signature to DER format and storing it as hex string in signature property of the transaction
     this.signature = sig.toDER('hex');
+    console.log(this.signature + "   signature");
+    
 
   }
 
@@ -90,7 +95,7 @@ class Blockchain {
     // console.log(typeof(this.chain));
     this.difficulty = 2;
     this.pendingTransactions = [];
-    this.miningReward = 10;
+    this.miningReward = 100;
 
   }
 

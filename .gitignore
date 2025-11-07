@@ -5,3 +5,5 @@ private key : fd49a946dc59afec2aa88d5a42297af49f06c7cb351fadd8db7a89daef3227df
 
 
 node_modules/
+
+.env

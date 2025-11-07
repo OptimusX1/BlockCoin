@@ -1,18 +1,2 @@
-{
+{"type":"module","scripts":{"dev":"node keygenerator.js"},"dependencies":{"crypto-js":"^4.2.0","dotenv":"^17.2.3","elliptic":"^6.6.1"}}
 
-"type": "module",
-
-"scripts": {
-
-"dev": "node keygenerator.js"
-
-},
-
-"dependencies": {
-
-"crypto-js": "^4.2.0",
-
-"elliptic": "^6.6.1"
-}
-
-}

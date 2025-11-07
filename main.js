@@ -2,21 +2,32 @@
 import {  Blockchain, Transaction } from './src/blockchain.js';
 
 import pkg from 'elliptic'; // Import the elliptic library ( to generate a pub, prov key , method to gen key ) as pkg
-const { ec: EC } = pkg;  // destructure to get ec as EC from pkg
+const { ec: EC } = pkg;  // destructure to get ec class as EC from pkg
 
+import dotenv from 'dotenv'; 
+dotenv.config(); // Load environment variables from .env file
+
+//created a new blockchain instance
 const blockcoin = new Blockchain();
 
 const ec = new EC('secp256k1'); // Create an EC instance using the secp256k1 curve
-const key = ec.keyFromPrivate('6cc17c7e74b006dd82bfed609d3bb3d8f400e1576513d057c8abf114bdb0b444');
-const myWalletAddress = key.getPublic('hex');
+const key = ec.keyFromPrivate(process.env.PRIVATE_KEY); // generating key pair from private key stored in .env file
+const myWalletAddress = key.getPublic('hex'); // from public key, you can extract the public wallet address 
 // console.log(myWalletAddress);
 
-
-//create a transaction & sign it with your key
-const txt1 = new Transaction(myWalletAddress, 'to some private address', 10);
+//created a transaction & sign it with your key
+const txt1 = new Transaction(myWalletAddress, 'to some private address', 90);
 txt1.signTransaction(key);
 blockcoin.addTransaction(txt1);
 
+
+const txt2 = new Transaction(myWalletAddress, 'to some private address', 10);
+txt2.signTransaction(key);
+blockcoin.addTransaction(txt2);
+
+const txt3 = new Transaction(myWalletAddress, 'to some private address', 10);
+txt3.signTransaction(key);
+blockcoin.addTransaction(txt3);
 // Store the transactions in pending transaction array
 // console.log(new Transaction('address1', 'address2', 100));
 // console.log(new Transaction('address1', 'address2', 100));
@@ -27,7 +38,6 @@ console.log('\n mining pending transactions');
 blockcoin.minePendingTransactions(myWalletAddress)
 
 console.log('\n Balance of Xavier ', blockcoin.getBalanceOfAddress(myWalletAddress));
-
 
 
 console.log('mining pending transactions again...');
