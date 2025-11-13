@@ -1,9 +1,4 @@
-public key : 0446927d56d314aa9bb287ee87bb74d8a1c4f3b1ff39343bebdbca46342c69a85c157a9bf5597bbcda04316427e2e7216d5bf0f337bfef614d7d6a6205a96692ee
-
-
-private key : fd49a946dc59afec2aa88d5a42297af49f06c7cb351fadd8db7a89daef3227df 
-
-
+# Ignore node modules
 node_modules/
 
 .env
