@@ -1,6 +1,6 @@
 {
   "name": "blockcoin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple blockchain implementation with transaction signing and mining",
   "main": "src/blockchain.js",
   "type": "module",
@@ -35,4 +35,3 @@
     "LICENSE"
   ]
 }
-
