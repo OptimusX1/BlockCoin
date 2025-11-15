@@ -1,4 +1,4 @@
-# BlockCoin
+# BlockCoin : A simple blockchain implementation with transaction signing and Proof-of-Work mining.
 
 #  Imported the necessary libraries like crypto, elliptic 
 
