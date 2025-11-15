@@ -39,12 +39,12 @@ class Transaction {
     const sig = signingKey.sign(hashTx, 'base64');
     //converting the signature to DER format and storing it as hex string in signature property of the transaction
     this.signature = sig.toDER('hex');
-    console.log(this.signature + "   signature");
+    // console.log(this.signature + "   signature");
     
-
   }
 
   isValid(){
+    //If from address is null , it is a mining reward transaction
     if(this.fromAddress === null) return true;
 
     if(!this.signature || this.signature.length === 0){
@@ -52,6 +52,10 @@ class Transaction {
     }
 
     const publicKey = ec.keyFromPublic(this.fromAddress, 'hex');
+    // console.log(publicKey);
+    // console.log("cal hash" , this.calculateHash());
+    
+    
     return publicKey.verify(this.calculateHash(), this.signature);
 }
 
@@ -110,13 +114,13 @@ class Blockchain {
   minePendingTransactions(miningRewardAddress) {  
     //creating an Instance of the Block class.
     let block = new Block(new Date(), this.pendingTransactions, this.getLatestBlock().hash);
-    // console.log(block);
+    // console.log('Block Instance ' , block);
    
-  //  console.log(block.mineBlock(this.difficulty));
+    // console.log(block.mineBlock(this.difficulty));
     block.mineBlock(this.difficulty); // Mining the block with POW algorithm....
 
     console.log("Block mined");
-    // console.log(block.hash);
+    // console.log('Mined Block : ' , block);
    
     this.chain.push(block); // pushing into the chain
     // console.log(this.chain);
@@ -126,7 +130,7 @@ class Blockchain {
       new Transaction(null, miningRewardAddress, this.miningReward)
   
     ];
-    console.log(miningRewardAddress);
+    // console.log(miningRewardAddress);
     
     // console.log(this.pendingTransactions);
    
@@ -145,6 +149,8 @@ class Blockchain {
     }
     this.pendingTransactions.push(transaction);
     // console.log(this.pendingTransactions);
+    console.log('Transaction pushed into the chain ');
+    
   }
 
   getBalanceOfAddress(address) {      

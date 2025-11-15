@@ -1,2 +1,38 @@
-{"type":"module","scripts":{"dev":"node keygenerator.js"},"dependencies":{"crypto-js":"^4.2.0","dotenv":"^17.2.3","elliptic":"^6.6.1"}}
+{
+  "name": "blockcoin",
+  "version": "1.0.0",
+  "description": "A simple blockchain implementation with transaction signing and mining",
+  "main": "src/blockchain.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node keygenerator.js",
+    "start": "node main.js"
+  },
+  "keywords": [
+    "blockchain",
+    "cryptocurrency",
+    "elliptic",
+    "proof-of-work",
+    "mining"
+  ],
+  "author": "Jagan <OptimusX1>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OptimusX1/BlockCoin.git"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "dotenv": "^17.2.3",
+    "elliptic": "^6.6.1"
+  },
+  "files": [
+    "src/",
+    "README.md",
+    "LICENSE"
+  ]
+}
 

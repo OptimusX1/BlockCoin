@@ -18,16 +18,17 @@ const myWalletAddress = key.getPublic('hex'); // from public key, you can extrac
 //created a transaction & sign it with your key
 const txt1 = new Transaction(myWalletAddress, 'to some private address', 90);
 txt1.signTransaction(key);
+// console.log("Transaction 1: ", txt1);
 blockcoin.addTransaction(txt1);
 
 
-const txt2 = new Transaction(myWalletAddress, 'to some private address', 10);
+//second Transaction 
+const txt2 = new Transaction(myWalletAddress, 'to some private address', 90);
 txt2.signTransaction(key);
+// console.log("Transaction 1: ", txt1);
 blockcoin.addTransaction(txt2);
 
-const txt3 = new Transaction(myWalletAddress, 'to some private address', 10);
-txt3.signTransaction(key);
-blockcoin.addTransaction(txt3);
+
 // Store the transactions in pending transaction array
 // console.log(new Transaction('address1', 'address2', 100));
 // console.log(new Transaction('address1', 'address2', 100));
@@ -37,16 +38,23 @@ blockcoin.addTransaction(txt3);
 console.log('\n mining pending transactions');
 blockcoin.minePendingTransactions(myWalletAddress)
 
+console.log(blockcoin.chain);
+
+// console.log(blockcoin.isChainValid());
+
 console.log('\n Balance of Xavier ', blockcoin.getBalanceOfAddress(myWalletAddress));
 
 
 console.log('mining pending transactions again...');
 blockcoin.minePendingTransactions(myWalletAddress)
-
 console.log('\n Balance of Xavier ', blockcoin.getBalanceOfAddress(myWalletAddress));
 
-console.log(blockcoin.chain);
-console.log(blockcoin.isChainValid());
+console.log('mining pending transactions again...');
+blockcoin.minePendingTransactions(myWalletAddress)
+console.log('\n Balance of Xavier ', blockcoin.getBalanceOfAddress(myWalletAddress));
+
+
+
 
 
 
